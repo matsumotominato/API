@@ -1,0 +1,25 @@
+<body>
+    <input id="target" type="text"/>
+    <button>取得</button>
+    <ul></ul>
+  
+    <script src="jquery-3.6.0.min.js"></script>
+    <script>
+      const url = 'https://api.github.com/search/repositories?q=';
+  
+      $('button').on('click', () => {
+        $.ajax({
+          url:url + $('#target').val(),
+          dataType:"json",
+        }).done(data => {
+          $('ul').empty();
+          
+          $.each(data.items, (index, value) => {
+            const elements = `<a href=${value.html_url}><li>${value.full_name}</li></a>`;
+  
+            $('ul').append(elements);
+          })
+        })
+      })
+  </script>
+  </body>
